@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Terranova CRM for Gmail",
+  "description": "Add the sender of an open Gmail message to your local Twenty CRM.",
+  "version": "0.1.0",
+  "minimum_chrome_version": "116",
+  "permissions": ["sidePanel"],
+  "host_permissions": ["http://localhost:3000/*"],
+  "background": { "service_worker": "worker.js", "type": "module" },
+  "action": { "default_title": "Open Terranova CRM" },
+  "side_panel": { "default_path": "sidebar.html" },
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/mail/*"],
+      "js": ["gmail.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'self' http://localhost:3000"
+  }
+}
